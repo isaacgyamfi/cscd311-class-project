@@ -16,8 +16,7 @@ const studentSchema = new Schema({
   studentBooking: {
     booking: {
       type: Schema.Types.ObjectId,
-      ref: 'Booking',
-      required: true
+      ref: 'Booking'
     }
   }
 });

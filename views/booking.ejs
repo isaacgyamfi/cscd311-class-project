@@ -5,6 +5,7 @@
         <h2>Student Online Residential Booking</h2>
         <h3>Book a room</h3>
         <form id="bookingForm" action="/booking" method="post">
+            <% if(loggedIn) {%>
             <div>
                 <label for="">Student's name: </label>
                 <input type="text" name="stdName" value="<%=student.studentName%>" id="stdName" readonly />
@@ -13,6 +14,16 @@
                 <label for="">Student's ID: </label>
                 <input type="text" name="stdID" value="<%=student.studentId%>" id="stdID" readonly />
             </div>
+            <%} else {%>
+            <div>
+                <label for="">Student's name: </label>
+                <input type="text" name="stdName" id="stdName" readonly />
+            </div>
+            <div>
+                <label for="">Student's ID: </label>
+                <input type="text" name="stdID" id="stdID" readonly />
+            </div>
+            <% } %>
             <div>
                 <label for="">Halls available: </label>
                 <select name="hall" id="hall">

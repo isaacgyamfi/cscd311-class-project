@@ -7,6 +7,7 @@ const Room = require('./models/Room');
 const app = express();
 const MONGODB_URI = 'mongodb://localhost:27017/residential-booking';
 const studentRoutes = require('./routes/student');
+const adminRoutes = require('./routes/admin');
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // import routes
 app.use(studentRoutes);
+app.use(adminRoutes);
 
 const PORT = 5000;
 

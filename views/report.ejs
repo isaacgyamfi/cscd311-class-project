@@ -1,0 +1,25 @@
+<%- include('./includes/head') %>
+
+<body>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Hall</th>
+                    <th scope="col">Room</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% result.forEach((data, index) => { %>
+                <tr>
+                    <td><%=data.studentId%></td>
+                    <td><%=data.hall%></td>
+                    <td><%=data.room%></td>
+                </tr>
+                <%})%>
+            </tbody>
+        </table>
+    </main>
+</body>
+<%- include('./includes/end') %>
