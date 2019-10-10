@@ -1,0 +1,55 @@
+<%- include('./includes/head') %>
+
+<body>
+    <main>
+        <h2>Student Online Residential Booking</h2>
+        <h3>Book a room</h3>
+        <form id="bookingForm" action="/booking" method="post">
+            <div>
+                <label for="">Student's name: </label>
+                <input type="text" name="stdName" value="<%=student.studentName%>" id="stdName" readonly />
+            </div>
+            <div>
+                <label for="">Student's ID: </label>
+                <input type="text" name="stdID" value="<%=student.studentId%>" id="stdID" readonly />
+            </div>
+            <div>
+                <label for="">Halls available: </label>
+                <select name="hall" id="hall">
+                    <option value="" disabled selected>Select your preferred hall</option>
+                    <option value="akuafo hall">Akuafo Hall</option>
+                    <option value="legon hall">Legon Hall</option>
+                    <option value="sarbah hall">Sarbah Hall</option>
+                    <option value="commonwealth hall">Commonwealth Hall</option>
+                    <option value="volta hall">Volta Hall</option>
+                    <option value="limann hall">Limann Hall</option>
+                    <option value="sey hall">Elizabeth Sey Hall</option>
+                    <option value="kwapong hall">Alex Kwapong Hall</option>
+                    <option value="jean hall">Jean Nelson Hall</option>
+                    <option value="jubilee hall">Jubilee Hall</option>
+                    <option value="au hall">African Union Hall</option>
+                    <option value="bani hall">Bani Hall</option>
+                    <option value="jtny hall">JTNY Hall</option>
+                </select>
+            </div>
+            <div>
+                <label for="">Room: </label>
+                <select name="room" id="room">
+                    <option value="" selected disabled>Select your room</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+            </div>
+            <button>Book a room</button>
+            <div id="register-link">
+                <a href="/">Cancel booking</a>
+            </div>
+        </form>
+    </main>
+</body>
+<%- include('./includes/end') %>
