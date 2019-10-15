@@ -18,3 +18,5 @@ routes:
 /register     - register new student into system
         
 /booking      - booking page
+
+/report       - report page
