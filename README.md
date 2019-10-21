@@ -1,5 +1,7 @@
 # cscd311-class-project
 
+ID: 10661943
+
 This is a web-based application for students to book a hostel.
 
 Start server: 
@@ -16,3 +18,5 @@ routes:
 /register     - register new student into system
         
 /booking      - booking page
+
+/report       - report page
