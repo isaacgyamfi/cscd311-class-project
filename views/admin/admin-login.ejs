@@ -1,0 +1,32 @@
+<%- include('../includes/head') %>
+
+<body>
+    <main>
+        <h2>Student Online Residential Booking</h2>
+        <h3>Admin Login</h3>
+        <form id="login" <% if (pageTitle == 'Admin login') { %> action="/admin/" <%} else {%> action="/admin/register"
+            <% } %> method="post">
+            <%if (pageTitle == 'Admin login') {%>
+            <h3 id="form-title">Log in</h3>
+            <input type="text" name="adminEmail" id="adminEmail" placeholder="Enter admin email">
+            <input type="password" name="adminPwd" id="adminPwd" placeholder="Enter admin password">
+            <button type="submit">Log in</button>
+            <div id="register-link">
+                <p>Don't have an account?</p><a href="/admin/register">Register here</a>
+            </div>
+            <%} else {%>
+            <h3 id="form-title">Admin Sign up</h3>
+            <input type="text" name="adminRegisterName" id="adminRegisterName" placeholder="Admin name">
+            <input type="text" name="adminRegisterEmail" id="adminRegisterEmail" placeholder="Admin email">
+            <input type="text" name="adminRegisterHallName" id="adminRegisterHallName" placeholder="Hall name">
+            <input type="password" name="adminRegisterPwd" id="adminRegisterPwd"
+                placeholder="Hall administrator password">
+            <button type="submit">Register</button>
+            <div id="register-link">
+                <p>Already have an account?</p><a href="/admin/">Log in here</a>
+            </div>
+            <% } %>
+        </form>
+    </main>
+</body>
+<%- include('../includes/end') %>

@@ -12,8 +12,12 @@ const roomSchema = new Schema({
   },
   bed: {
     type: Number,
-    required: true,
-    default: 4
+    required: true
+  },
+  adminId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Admin',
+    required: true
   }
 });
 

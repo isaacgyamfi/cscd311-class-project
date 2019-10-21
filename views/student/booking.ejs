@@ -1,4 +1,4 @@
-<%- include('./includes/head') %>
+<%- include('../includes/head') %>
 
 <body>
     <main>
@@ -14,6 +14,7 @@
                 <label for="">Student's ID: </label>
                 <input type="text" name="stdID" value="<%=student.studentId%>" id="stdID" readonly />
             </div>
+            <input type="hidden" name="studentUserId" value="<%=student._id%>">
             <%} else {%>
             <div>
                 <label for="">Student's name: </label>
@@ -56,11 +57,11 @@
                     <option value="7">7</option>
                 </select>
             </div>
-            <button>Book a room</button>
+            <button type="submit">Book a room</button>
             <div id="register-link">
                 <a href="/">Cancel booking</a>
             </div>
         </form>
     </main>
 </body>
-<%- include('./includes/end') %>
+<%- include('../includes/end') %>

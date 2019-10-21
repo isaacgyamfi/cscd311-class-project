@@ -1,11 +1,50 @@
 const express = require('express');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const path = require('path');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
-const Room = require('./models/Room');
+const Student = require('./models/Student');
 
 const app = express();
+
 const MONGODB_URI = 'mongodb://localhost:27017/residential-booking';
+const store = new MongoDBStore({
+  uri: MONGODB_URI,
+  collection: 'sessions'
+});
+
+app.use(
+  session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    store: store
+  })
+);
+
+app.use((req, res, next) => {
+  res.locals.authenticated = req.session.loggedIn;
+  next();
+});
+
+app.use((req, res, next) => {
+  if (!req.session.student) {
+    return next();
+  }
+  Student.findById(req.session.student._id)
+    .then(student => {
+      if (!student) {
+        return next();
+      }
+      req.student = student;
+      next();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
 const studentRoutes = require('./routes/student');
 const adminRoutes = require('./routes/admin');
 
@@ -19,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // import routes
 app.use(studentRoutes);
-app.use(adminRoutes);
+app.use('/admin', adminRoutes);
 
 const PORT = 5000;
 
@@ -34,14 +73,6 @@ mongoose
   .catch(err => {
     console.log(err);
   });
-
-// Room.create({ hall: 'Sarbah', roomNumber: '5', bed: 4 })
-//   .then(result => {
-//     console.log('room created');
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
 
 app.listen(PORT, () => {
   console.log(`Connection successful on http://localhost:${PORT}`);

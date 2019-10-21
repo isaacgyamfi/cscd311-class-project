@@ -13,21 +13,21 @@ const studentSchema = new Schema({
     type: String,
     required: true
   },
-  studentBooking: {
-    booking: {
-      type: Schema.Types.ObjectId,
-      ref: 'Booking'
-    }
+  studentRoom: {
+    room: [
+      {
+        roomId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Room',
+          required: true
+        }
+      }
+    ]
   }
 });
 
-studentSchema.methods.addToBooking = function(bookRoom) {
-  const bookingRoom = { ...this.studentBooking.booking };
-  if (!bookingRoom) {
-    const updatedBooking = { studentBooking: bookRoom };
-    this.studentBooking = updatedBooking;
-    return this.save();
-  }
+studentSchema.methods.addRoom = function(student) {
+  // assign room
 };
 
 module.exports = mongoose.model('Student', studentSchema);

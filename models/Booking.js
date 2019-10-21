@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema({
+  studentId: {
+    type: String,
+    required: true
+  },
   hall: {
     type: String,
     required: true
@@ -10,9 +14,10 @@ const bookingSchema = new Schema({
     type: String,
     required: true
   },
-  studentId: {
-    type: String,
-    required: true
+  student: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Student'
   }
 });
 

@@ -1,0 +1,44 @@
+<%- include('../includes/head') %>
+
+<body>
+    <main>
+        <h2>Student Online Residential Booking</h2>
+        <h3>Add Rooms for boooking</h3>
+
+        <form id="addRoomForm" class="container" action="/admin/add-room" method="post">
+            <div class="form-group row col-md-12">
+                <div class="col-md-6">
+                    <label for="">Enter number of blocks to add</label>
+                </div>
+                <div class="col-md-6">
+                    <input name="numOfBlocks" id="numOfBlocks" value="1" type="number" class="form-control"
+                        placeholder="0" required>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <div id="addBlockDiv" class="form-row col-md-12">
+                        <div class="col-md-5 form-group">
+                            <input placeholder="Block name/number" class="form-control" type="text" name="block"
+                                id="block">
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <input placeholder="Number of rooms available for booking" class="form-control"
+                                type="number" name="numOfRooms" id="numOfRooms">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <button onclick="addAnotherBlock(event)" id="addBlock" class="btn btn-primary">Add
+                    block</button>
+            </div>
+            <!-- <button class="btn btn-danger">Remove</button> -->
+            <div style="margin: 50px 150px">
+                <button type="submit" class="btn btn-primary btn-block">Submit rooms</button>
+            </div>
+        </form>
+    </main>
+</body>
+<%- include('../includes/end') %>

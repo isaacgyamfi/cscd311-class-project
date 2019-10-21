@@ -1,26 +1,16 @@
-const Student = require('../models/Student');
 const Booking = require('../models/Booking');
-const Room = require('../models/Room');
-exports.getLogin = (req, res) => {
-  res.render('login', {
-    pageTitle: 'Student login'
-  });
-};
+const Student = require('../models/Student');
 
-exports.postLogin = (req, res) => {
-  const studentId = req.body.studentId;
-  const studentPin = req.body.studentPin;
-
-  Student.findOne({
-    studentId,
-    studentPin
-  })
+exports.getBooking = (req, res) => {
+  const studentId = req.session.student._id;
+  console.log(studentId);
+  Student.findOne(studentId)
     .then(student => {
       if (!student) {
+        console.log('logged out');
         return res.redirect('/');
       }
-      console.log('Logged in successfully');
-      res.render('booking', {
+      res.render('student/booking', {
         pageTitle: 'Book a room',
         student: student,
         loggedIn: true
@@ -31,47 +21,11 @@ exports.postLogin = (req, res) => {
     });
 };
 
-exports.getRegister = (req, res) => {
-  res.render('login', {
-    pageTitle: 'Student register'
-  });
-};
-
-exports.postRegister = (req, res) => {
-  const studentName = req.body.studentRegisterName;
-  const studentId = req.body.studentRegisterId;
-  const studentPin = req.body.studentRegisterPin;
-
-  const newStudent = new Student({ studentName, studentId, studentPin });
-  newStudent
-    .save()
-    .then(result => {
-      Student.findOne({ studentId }).then(result => {
-        console.log(result);
-        console.log('New student created');
-        res.render('booking', {
-          loggedIn: true,
-          pageTitle: 'Book a room',
-          student: result
-        });
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
-
-exports.getBooking = (req, res) => {
-  res.render('booking', {
-    pageTitle: 'Book a room',
-    loggedIn: false
-  });
-};
-
 exports.postBooking = (req, res) => {
   const studentId = req.body.stdID;
   const room = req.body.room;
   const hall = req.body.hall;
+  // const studentUserId = req.body.studentUserId;
 
   if (studentId == '') {
     res.redirect('/');
@@ -82,24 +36,30 @@ exports.postBooking = (req, res) => {
           console.log('Already made booking');
           return res.send('Already made booking');
         }
-        const booking = new Booking({ studentId, room, hall });
+        const booking = new Booking({
+          studentId: studentId,
+          room: room,
+          hall: hall,
+          student: req.student
+        });
         booking
           .save()
           .then(result => {
-            console.log('room booked');
+            res.render();
             res.redirect('/');
           })
           .catch(err => {
             console.log(err);
           });
-        Student.findOne({ studentId })
-          .then(std => {
-            return std.addToBooking(std);
-          })
-          .catch(err => console.log(err));
       })
       .catch(err => {
         console.log(err);
       });
   }
+};
+
+exports.getSuccessPage = (req, res) => {
+  res.render('student/success', {
+    pageTitle: 'Booking success'
+  });
 };
