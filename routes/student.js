@@ -1,20 +1,27 @@
 const router = require('express').Router();
 
 const studentController = require('../controllers/student');
-const studentAuthController = require('../controllers/auth');
+const {
+  getStudentLogin,
+  postStudentLogin,
+  getStudentRegister,
+  postStudentRegister,
+  postStudentLogout
+} = require('../controllers/auth');
+
 const isAuth = require('../middleware/is-auth');
 
-router.get('/', studentAuthController.getStudentLogin);
-router.post('/', studentAuthController.postStudentLogin);
+router.get('/', getStudentLogin);
+router.post('/', postStudentLogin);
 
-router.get('/register', studentAuthController.getStudentRegister);
-router.post('/register', studentAuthController.postStudentRegister);
+router.get('/register', getStudentRegister);
+router.post('/register', postStudentRegister);
 
 router.get('/booking', isAuth, studentController.getBooking);
 router.post('/booking', isAuth, studentController.postBooking);
 
 router.get('/success', isAuth, studentController.getSuccessPage);
 
-router.post('/logout', studentAuthController.postStudentLogout);
+router.post('/logout', postStudentLogout);
 
 module.exports = router;

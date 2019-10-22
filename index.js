@@ -5,6 +5,7 @@ const path = require('path');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const Student = require('./models/Student');
+const Admin = require('./models/Admin');
 
 const app = express();
 
@@ -23,8 +24,27 @@ app.use(
   })
 );
 
+const adminStore = new MongoDBStore({
+  uri: MONGODB_URI,
+  collection: 'admin-sessions'
+});
+
+app.use(
+  session({
+    secret: 'admin-secret',
+    resave: false,
+    saveUninitialized: false,
+    store: adminStore
+  })
+);
+
 app.use((req, res, next) => {
   res.locals.authenticated = req.session.loggedIn;
+  next();
+});
+
+app.use((req, res, next) => {
+  res.locals.adminAuthenticated = req.session.adminLoggedIn;
   next();
 });
 
@@ -38,6 +58,23 @@ app.use((req, res, next) => {
         return next();
       }
       req.student = student;
+      next();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+app.use((req, res, next) => {
+  if (!req.session.admin) {
+    return next();
+  }
+  Admin.findById(req.session.admin._id)
+    .then(admin => {
+      if (!admin) {
+        return next();
+      }
+      req.admin = admin;
       next();
     })
     .catch(err => {
